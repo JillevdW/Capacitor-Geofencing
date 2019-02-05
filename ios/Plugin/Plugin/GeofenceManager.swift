@@ -110,7 +110,7 @@ class GeofenceManager: NSObject {
 //            guard error == nil, response != nil else { return }
             guard let httpResponse = response as? HTTPURLResponse else { return }
             print("Post request finished with response code: \(httpResponse.statusCode).")
-        }
+        }.resume()
     }
     
 }
