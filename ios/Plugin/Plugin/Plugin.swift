@@ -8,13 +8,6 @@ import Capacitor
 @objc(CapacitorGeofencing)
 public class CapacitorGeofencing: CAPPlugin {
     
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
-        call.success([
-            "value": value
-        ])
-    }
-    
     @objc func setup(_ call: CAPPluginCall) {
         // Check if all properties are present
         guard let backendUrl = call.getString("url") else {

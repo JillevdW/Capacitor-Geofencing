@@ -4,7 +4,6 @@
 // Define the plugin using the CAP_PLUGIN Macro, and
 // each method the plugin supports using the CAP_PLUGIN_METHOD macro.
 CAP_PLUGIN(CapacitorGeofencing, "CapacitorGeofencing",
-           CAP_PLUGIN_METHOD(echo, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setup, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(addRegion, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(stopMonitoring, CAPPluginReturnPromise);
