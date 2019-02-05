@@ -81,5 +81,5 @@ This lists the identifiers of the regions that are currently being monitored.
 CapacitorGeofencing.monitoredRegions()
     .then(regions => {
     	// regions is an array of Strings.
-	});
+    });
 ```
