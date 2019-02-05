@@ -21,11 +21,11 @@ public class CapacitorGeofencing: CAPPlugin {
             call.error("Must provide url.")
             return
         }
-        guard let notifyOnEntry = call.getBool("notifyOnEntry", defaultValue: nil) else {
+        guard let notifyOnEntry = call.getBool("notifyOnEntry", nil) else {
             call.error("Must provide notifyOnEntry.")
             return
         }
-        guard let notifyOnExit = call.getBool("notifyOnExit", defaultValue: nil) else {
+        guard let notifyOnExit = call.getBool("notifyOnExit", nil) else {
             call.error("Must provide notifyOnExit.")
             return
         }

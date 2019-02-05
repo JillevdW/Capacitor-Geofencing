@@ -20,7 +20,7 @@ class GeofenceManager: NSObject {
     
     var notifyOnExit = true
     
-    var backendUrl: URL? = URL(string: "937ed932.ngrok.io")
+    var backendUrl: URL?
     
     var payload = [String: Any]()
     
