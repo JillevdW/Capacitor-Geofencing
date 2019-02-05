@@ -4,11 +4,6 @@ declare global {
     }
 }
 export interface CapacitorGeofencingPlugin {
-    echo(options: {
-        value: string;
-    }): Promise<{
-        value: string;
-    }>;
     setup(options: {
         url: string;
         notifyOnEntry: boolean;
@@ -20,6 +15,7 @@ export interface CapacitorGeofencingPlugin {
     addRegion(options: {
         latitude: number;
         longitude: number;
+        radius?: number;
         identifier: string;
     }): Promise<{
         value: string;
