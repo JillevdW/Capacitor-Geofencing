@@ -14,7 +14,7 @@ class GeofenceManager: NSObject {
     // Singleton instance
     static let shared = GeofenceManager()
     
-    private let locationManager = CLLocationManager()
+    private var locationManager: CLLocationManager!
     
     var notifyOnEntry = true
     
@@ -24,15 +24,21 @@ class GeofenceManager: NSObject {
     
     var payload = [String: Any]()
     
+    var setupCallback: ((_ success: Bool) -> Void)?
+
     override init() {
         super.init()
-        locationManager.delegate = self
+        DispatchQueue.main.sync {
+            self.locationManager = CLLocationManager()
+            self.locationManager.delegate = self
+        }
     }
     
     /**
     Request access to location data, in the background and while using the app.
     */
-    func requestAlwaysAuthorization() {
+    func requestAlwaysAuthorization(completion: @escaping ((_ success: Bool) -> Void)) {
+        setupCallback = completion
         locationManager.requestAlwaysAuthorization()
     }
     
@@ -118,7 +124,16 @@ class GeofenceManager: NSObject {
 extension GeofenceManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print("Location authorization changed to \(status).")
+        switch status {
+        case .authorizedAlways:
+            print("Location authorization changed to 'authorizedAlways'.")
+            setupCallback?(true)
+        case .notDetermined:
+            print("Location authorization not determined yet.")
+            break
+        default:
+            setupCallback?(false)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {

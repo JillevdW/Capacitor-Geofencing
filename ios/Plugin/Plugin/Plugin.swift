@@ -36,8 +36,13 @@ public class CapacitorGeofencing: CAPPlugin {
         GeofenceManager.shared.notifyOnEntry = notifyOnEntry
         GeofenceManager.shared.notifyOnExit = notifyOnExit
         GeofenceManager.shared.payload = payload
-        GeofenceManager.shared.requestAlwaysAuthorization()
-        call.success()
+        GeofenceManager.shared.requestAlwaysAuthorization { (success) in
+            if success {
+                call.success()
+            } else {
+                call.error("User did not give 'alwaysAuthorization' permission.")
+            }
+        }
     }
     
     @objc func addRegion(_ call: CAPPluginCall) {
