@@ -35,6 +35,8 @@ CapacitorGeofencing.setup({
 }); // This returns a promise with a success/error message.
 ```
 
+The promise returned here is important: an error will be returned when supplied invalid parameters, or when the user gave an invalid location authorization status (the only valid status is .alwaysAuthorization).
+
 You also need to add the following keys to your info.plist file:
 
 ```xml
@@ -48,7 +50,7 @@ You also need to add the following keys to your info.plist file:
 
 ## Register a region
 
-After setting up the plugin you can register regions.
+After setting up the plugin you can register regions. **It is recommended to set up geofences in the success Promise returned by the setup function. For more information, see the complete example at the bottom of this page.**
 
 ```typescript
 CapacitorGeofencing.addRegion({
@@ -82,4 +84,39 @@ CapacitorGeofencing.monitoredRegions()
     .then(regions => {
     	// regions is an array of Strings.
     });
+```
+
+
+
+## Complete example
+
+```typescript
+import { Plugins } from "@capacitor/core";
+import { CapacitorGeofencingPlugin } from "capacitor-geofencing";
+let { CapacitorGeofencing } = Plugins;
+
+CapacitorGeofencing.setup({
+    url: "",
+    notifyOnEntry: true,
+    notifyOnExit: true,
+    payload: {}
+})
+.then(s => {
+    console.log("Successfully finished setting up.");
+    CapacitorGeofencing.addRegion({
+        latitude: 37.33182,
+        longitude: 122.03118,
+        identifier: "infinite-loop",
+        radius: 500
+    })
+    .then(s => {
+        console.log("Successfully added geofence.");
+    })
+    .catch(e => {
+        console.log(`Error: ${JSON.stringify(e)}`);
+    });
+})
+.catch(e => {
+    console.log(`Error: ${JSON.stringify(e)}`);
+});
 ```
