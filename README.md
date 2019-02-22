@@ -105,18 +105,15 @@ CapacitorGeofencing.setup({
 })
 .then(s => {
     console.log("Successfully finished setting up.");
-    CapacitorGeofencing.addRegion({
+    return CapacitorGeofencing.addRegion({
         latitude: 37.33182,
         longitude: 122.03118,
         identifier: "infinite-loop",
         radius: 500
     })
-    .then(s => {
-        console.log("Successfully added geofence.");
-    })
-    .catch(e => {
-        console.log(`Error: ${JSON.stringify(e)}`);
-    });
+})
+.then(s => {
+    console.log("Successfully added geofence.");
 })
 .catch(e => {
     console.log(`Error: ${JSON.stringify(e)}`);
