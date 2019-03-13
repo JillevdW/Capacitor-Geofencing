@@ -74,6 +74,13 @@ class GeofenceManager: NSObject {
         return region
     }
     
+    /**
+     Starts monitoring the given region.
+     - returns:
+     A Boolean indicating whether geofencing is available or not.
+     - parameters:
+     - region: The CLCircularRegion to monitor.
+     */
     func startMonitoring(region: CLCircularRegion) -> Bool {
         if geofenceAvailable() {
             locationManager.startMonitoring(for: region)
@@ -82,6 +89,13 @@ class GeofenceManager: NSObject {
         return false
     }
     
+    /**
+     Stops monitoring the region for the given identifier.
+     - returns:
+     A Boolean indicating whether removing the geofence for the given string was successful or not.
+     - parameters:
+     - identifier: The String identifier that was used to create the region.
+     */
     func stopMonitoring(identifier: String) -> Bool {
         for region in locationManager.monitoredRegions {
             guard let cr = region as? CLCircularRegion, cr.identifier == identifier else { continue }
@@ -91,14 +105,30 @@ class GeofenceManager: NSObject {
         return false
     }
     
+    /**
+     Returns the amount of regions you're currently monitoring.
+     - returns:
+     The amount of monitored regions.
+     */
     func monitoredRegionsCount() -> Int {
         return locationManager.monitoredRegions.count
     }
     
+    /**
+     Returns the identifiers of all monitored regions.
+     - returns:
+     An array that contains the identifiers of all currently monitored regions.
+     */
     func monitoredRegions() -> [String] {
         return locationManager.monitoredRegions.map({ $0.identifier })
     }
     
+    /**
+     Sends the given data to the backend.
+     - parameters:
+     - region: The region for which the event happened.
+     - enter: A Boolean value indicating whether the user entered(true) or left(false) the region.
+     */
     private func handleEvent(forRegion region: CLRegion, enter: Bool) {
         let identifer = region.identifier
         payload["identifier"] = identifer
