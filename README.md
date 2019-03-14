@@ -46,6 +46,8 @@ You also need to add the following keys to your info.plist file:
 <string>Reasen for when in usage.</string>
 ```
 
+The `payload` parameter here is interesting; this will be sent through a POST request to the given `url`. However, the plugin will inject some other data into that request: the identifier(String) of the geofence that was triggered, and an enter(Boolean) property indicating whether the user entered or left the area.
+
 
 
 ## Register a region
