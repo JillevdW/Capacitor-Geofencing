@@ -1,6 +1,6 @@
 {
   "name": "capacitor-geofencing",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Easy interface to register GeoFences on iOS.",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
