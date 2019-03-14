@@ -48,7 +48,7 @@ public class CapacitorGeofencing: CAPPlugin {
     @objc func addRegion(_ call: CAPPluginCall) {
         // Check if all properties are present
         guard let lat = call.get("latitude", Double.self) else {
-            call.error("Must provied latitude.")
+            call.error("Must provide latitude.")
             return
         }
         guard let lng = call.get("longitude", Double.self) else {
