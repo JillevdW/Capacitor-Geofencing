@@ -166,6 +166,11 @@ extension GeofenceManager: CLLocationManagerDelegate {
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        print("Did start monitoring for region: \(region.identifier)")
+        locationManager.requestState(for: region)
+    }
+    
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         print("Monitoring failed for region with identifier: \(region!.identifier).")
     }
@@ -173,16 +178,26 @@ extension GeofenceManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location Manager failed with the following error: \(error).")
     }
-    
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        if region is CLCircularRegion {
-            handleEvent(forRegion: region, enter: true)
-        }
-    }
+
+    // Temporarily removed to see if the 'didDetermineState' function fulfills this need.
+//    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+//        if region is CLCircularRegion {
+//            handleEvent(forRegion: region, enter: true)
+//        }
+//    }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         if region is CLCircularRegion {
             handleEvent(forRegion: region, enter: false)
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        switch state {
+        case CLRegionState.inside:
+            handleEvent(forRegion: region, enter: true)
+        default:
+            break
         }
     }
 }
